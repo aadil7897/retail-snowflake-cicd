@@ -1,0 +1,5 @@
+rsa_key.p8
+rsa_key.pub
+*.pem
+.env
+.snowflake/

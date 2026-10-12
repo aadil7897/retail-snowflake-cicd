@@ -1,0 +1,21 @@
+name: CI - Validate SQL
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install sqlfluff
+      - run: sqlfluff lint database tests --dialect snowflake
+      - name: Block destructive table replacement
+        run: |
+          if grep -RniE "CREATE[[:space:]]+OR[[:space:]]+REPLACE[[:space:]]+TABLE" database; then
+            echo "Blocked: CREATE OR REPLACE TABLE in deployable code"
+            exit 1
+          fi

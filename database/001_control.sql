@@ -1,3 +1,6 @@
+-- Retail CI/CD Project
+-- First change executed through GitHub CI pipeline
+
 CREATE SCHEMA IF NOT EXISTS CONTROL;
 
 CREATE TABLE IF NOT EXISTS CONTROL.DEPLOYMENT_AUDIT (
